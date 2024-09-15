@@ -1,5 +1,6 @@
-Package    Version
----------- -------
-pip        24.2
-setuptools 68.2.0
-wheel      0.41.2
+numpy==2.1.1
+pygame==2.6.0
+pygame-widgets==1.1.5
+PyYAML==6.0.2
+scipy==1.14.1
+screeninfo==0.8.1

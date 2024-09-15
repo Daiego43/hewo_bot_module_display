@@ -15,7 +15,7 @@ setup(
     zip_safe=True,
     maintainer='Daiego43',
     maintainer_email='diedelcha@gmail.com',
-    description='This package implements a pygame window that displays the robot\'s face. Since it is pygame, you could also use it to display whatever you want.',
+    description='This package implements a pygame window that layouts the robot\'s face. Since it is pygame, you could also use it to display whatever you want.',
     license='TODO',
     entry_points={
         'console_scripts': [

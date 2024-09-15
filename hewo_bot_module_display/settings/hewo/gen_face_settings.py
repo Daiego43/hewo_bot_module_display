@@ -3,7 +3,7 @@ From the dimensions and position of the main surface
 of the face, dimension and position of the other
 """
 
-from src.hewo_bot_module_display.hewo_bot_module_display.settings.settings_loader import SettingsLoader
+from hewo_bot_module_display.settings.settings_loader import SettingsLoader
 import math
 
 HEART = (1 + math.sqrt(5)) / 2  # Heart of hewo is golden ratio

@@ -1,0 +1,9 @@
+width: 960
+height: 640
+fullscreen: False
+bg_color:
+  r: 100
+  g: 139
+  b: 127
+id: 0
+name: "DP-1"

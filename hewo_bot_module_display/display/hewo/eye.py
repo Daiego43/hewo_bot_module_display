@@ -3,20 +3,15 @@ import numpy as np
 from scipy.interpolate import make_interp_spline
 from hewo_bot_module_display.settings.settings_loader import SettingsLoader
 
-settings = SettingsLoader().load_settings("settings.hewo")
-eye_settings = settings['elements']['left_eye']['elements']
+eye_settings = SettingsLoader().load_settings("settings.hewo")['eye']
 
 
 class Pupil:
-    pupil = eye_settings["pupil"]
-    COLOR = (pupil["color"]["r"],
-             pupil["color"]["g"],
-             pupil["color"]["b"])
-
-    def __init__(self, size, position, color=COLOR):
+    def __init__(self, size, position, settings):
+        # TODO: Shrink the pupil to extract new emotions.
         self.size = size
         self.position = position
-        self.color = color
+        self.color = settings['color'].values()
 
     def update(self):
         pass
@@ -35,19 +30,12 @@ class Pupil:
 
 
 class EyeLash:
-    lash_settings = eye_settings['top_lash']
-    COLOR = (
-        lash_settings['color']['r'],
-        lash_settings['color']['g'],
-        lash_settings['color']['b']
-    )
-
-    def __init__(self, size, position, color=COLOR, init_pcts=[0, 0, 0], flip=False):
+    def __init__(self, size, position, settings):
         self.size = size
         self.position = position
-        self.color = color
+        self.color = settings['color'].values()
         self.max_emotion = self.size[1]
-        self.emotion_pcts = init_pcts
+        self.emotion_pcts = settings['emotion'].values()
         x, y = position
         w, h = size
         self.polygon_points = [
@@ -58,8 +46,8 @@ class EyeLash:
             [w + x, 0 + y],
             [w / 2 + x, 0 + y]
         ]
-        self.flip = flip
-        self.set_points_by_pct(init_pcts)
+        self.flip = settings['flip']
+        self.set_points_by_pct(self.emotion_pcts)
 
     def handle_event(self, event):
         pass
@@ -107,29 +95,35 @@ class EyeLash:
 
 
 class Eye:
-    surface = settings['elements']['left_eye']['surface']
-    SURFACE_COLOR = (
-        surface['color']['r'],
-        surface['color']['g'],
-        surface['color']['b']
-    )
-
-    def __init__(self, size, position, init_emotion=None):
+    # Here I should initialize all the elements that make up the eye
+    def __init__(self, size, position, settings):
         self.size = size
         self.position = position
+        self.BG_COLOR = settings['bg_color'].values()
+
+        # Sizes are in proportion to the eye size
         self.lash_size = (self.size[0], self.size[1] / 2)
         self.t_pos = (0, 0)
         self.b_pos = (0, self.size[1] / 2)
-        if init_emotion is None:
-            self.t_emotion = [0, 0, 0]
-            self.b_emotion = [0, 0, 0]
-        else:
-            self.t_emotion = init_emotion[0]
-            self.b_emotion = init_emotion[1]
-        self.top_lash = EyeLash(size=self.lash_size, position=self.t_pos)
-        self.pupil = Pupil(size=self.size, position=self.position)
-        self.bot_lash = EyeLash(size=self.lash_size, position=self.b_pos, flip=True)
 
+        # Declare the elements that make up the eye
+        self.top_lash = EyeLash(
+            size=self.lash_size,
+            position=self.t_pos,
+            settings=settings['top_lash']
+        )
+        self.pupil = Pupil(
+            size=self.size,
+            position=self.position,
+            settings=settings['pupil']
+        )
+        self.bot_lash = EyeLash(
+            size=self.lash_size,
+            position=self.b_pos,
+            settings=settings['bot_lash']
+        )
+
+        # And initialize the surface of it
         self.eye_surface = pygame.Surface(self.size)
 
     def handle_event(self, event):
@@ -139,7 +133,7 @@ class Eye:
 
     def draw(self, surface):
         self.eye_surface = pygame.surface.Surface(self.size)
-        self.eye_surface.fill(self.SURFACE_COLOR)
+        self.eye_surface.fill(self.BG_COLOR)
         self.pupil.draw(self.eye_surface)
         self.top_lash.draw(self.eye_surface)
         self.bot_lash.draw(self.eye_surface)
@@ -156,3 +150,7 @@ class Eye:
 
     def get_emotion(self):
         return self.top_lash.get_emotion(), self.bot_lash.get_emotion()
+
+
+if __name__ == '__main__':
+    eye_settings = SettingsLoader().load_settings("settings.hewo")['eye']

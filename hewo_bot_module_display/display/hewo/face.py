@@ -28,7 +28,7 @@ class Face:
         self.eye_size = [self.size[0] / 5, self.size[1] / 5 * 4]
         self.mouth_size = [self.size[0] / 5 * 3, self.size[1] / 5]
 
-        self.left_eye_pos = [0, 0]  # in the canvas
+        self.left_eye_pos = [0, 0]
         self.right_eye_pos = [self.eye_size[0] * 4, 0]
         self.mouth_pos = [self.eye_size[0], self.eye_size[1]]
 

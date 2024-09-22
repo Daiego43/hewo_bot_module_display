@@ -1,0 +1,16 @@
+
+top_lash:
+  color:
+    - 100
+    - 139
+    - 127
+pupil:
+  color:
+    - 231
+    - 210
+    - 146
+bot_lash:
+  color:
+    - 100
+    - 139
+    - 127

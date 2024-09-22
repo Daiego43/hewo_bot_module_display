@@ -4,7 +4,6 @@ from scipy.interpolate import make_interp_spline
 from hewo_bot_module_display.settings.settings_loader import SettingsLoader
 
 settings = SettingsLoader().load_settings("settings.hewo")
-
 eye_settings = settings['elements']['left_eye']['elements']
 
 

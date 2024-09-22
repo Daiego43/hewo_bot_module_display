@@ -1,6 +1,6 @@
 """
 From the dimensions and position of the main surface
-of the face, dimension and position of the other
+of the hewo, dimension and position of the other
 """
 
 from hewo_bot_module_display.settings.settings_loader import SettingsLoader

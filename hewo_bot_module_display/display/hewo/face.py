@@ -1,8 +1,7 @@
 import pygame
 import math
-from hewo_bot_module_display.display.face.eye import Eye
-from hewo_bot_module_display.display.face.mouth import Mouth
-from hewo_bot_module_display.display.face.control import FaceControls
+from hewo_bot_module_display.display.hewo.eye import Eye
+from hewo_bot_module_display.display.hewo.mouth import Mouth
 from hewo_bot_module_display.settings.settings_loader import SettingsLoader
 
 PHI = (1 + math.sqrt(5)) / 2
@@ -15,7 +14,6 @@ class Face:
         settings['surface']['color']['g'],
         settings['surface']['color']['b']
     )
-    CONTROLS = FaceControls()
 
     def __init__(self, position=None, color=COLOR, factor=350, enable_controls=True, max_size=(960, 640)):
         if position is None:
@@ -75,7 +73,6 @@ class Face:
         self.left_eye.handle_event(event)
         self.right_eye.handle_event(event)
         self.mouth.handle_event(event)
-        self.CONTROLS.handle_event(event)
 
     def draw(self, surface):
         self.face_surface.fill(self.color)
@@ -84,8 +81,6 @@ class Face:
         self.mouth.draw(self.face_surface)
         # self.face_surface = pixelate(self.face_surface, 100, self.size)
         surface.blit(self.face_surface, dest=self.position)
-        if self.enable_controls:
-            self.CONTROLS.draw(surface)
 
     def get_emotion(self):
         letl = self.left_eye.top_lash.get_emotion()
@@ -109,17 +104,10 @@ class Face:
         self.mouth.set_emotion(tl, bl)
 
     def update_emotion(self):
-        self.CONTROLS.update()
-        c = self.CONTROLS.get_values()
-        self.set_emotions(c)
+        pass
 
     def handle_input(self):
         keys = pygame.key.get_pressed()
-        position, size = self.CONTROLS.handle_input(
-            keys, self.position, self.size
-        )
-        self.set_position(position)
-        self.set_size(size)
         self.set_face_elements()
 
 

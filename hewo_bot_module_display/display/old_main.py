@@ -6,10 +6,7 @@ import screeninfo
 import pygame
 import os
 import sys
-
-from scipy.misc import electrocardiogram
-
-from hewo_bot_module_display.display.face.face import Face
+from hewo_bot_module_display.display.hewo.face import Face
 from hewo_bot_module_display.settings.settings_loader import SettingsLoader
 
 

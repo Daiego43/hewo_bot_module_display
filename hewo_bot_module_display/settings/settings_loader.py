@@ -39,5 +39,5 @@ class SettingsLoader:
 
 if __name__ == '__main__':
     loader = SettingsLoader()
-    loader.load_settings('hewo.settings.default')
+    loader.load_settings('settings.hewo')
     loader.pretty_print()

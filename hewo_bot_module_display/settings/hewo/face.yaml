@@ -1,0 +1,12 @@
+face:
+  bg_color:
+    - 100
+    - 139
+    - 127
+  size: 350
+  position:
+    - 0
+    - 0
+  max_size:
+    - 940
+    - 640

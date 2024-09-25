@@ -11,7 +11,7 @@ class Pupil:
         # TODO: Shrink the pupil to extract new emotions.
         self.size = size
         self.position = position
-        self.color = settings['color'].values()
+        self.color = settings['color']
 
     def update(self):
         pass
@@ -33,9 +33,9 @@ class EyeLash:
     def __init__(self, size, position, settings):
         self.size = size
         self.position = position
-        self.color = settings['color'].values()
+        self.color = settings['color']
         self.max_emotion = self.size[1]
-        self.emotion_pcts = settings['emotion'].values()
+        self.emotion_pcts = settings['emotion']
         x, y = position
         w, h = size
         self.polygon_points = [
@@ -96,10 +96,10 @@ class EyeLash:
 
 class Eye:
     # Here I should initialize all the elements that make up the eye
-    def __init__(self, size, position, settings):
+    def __init__(self, size, position, settings=eye_settings):
         self.size = size
         self.position = position
-        self.BG_COLOR = settings['bg_color'].values()
+        self.BG_COLOR = settings['bg_color']
 
         # Sizes are in proportion to the eye size
         self.lash_size = (self.size[0], self.size[1] / 2)
